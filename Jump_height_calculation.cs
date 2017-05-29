@@ -16,8 +16,8 @@ public class Jump_height_calculation : MonoBehaviour {
     //checkbox to trigger the calculation once in play mode
     public bool do_calculation;
 
-	void Update () {
-		if (do_calculation && Application.isEditor) {            
+    void Update () {
+        if (do_calculation && Application.isEditor) {            
 
             do_calculation = false;
 
