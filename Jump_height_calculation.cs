@@ -16,7 +16,6 @@ public class Jump_height_calculation : MonoBehaviour {
     //checkbox to trigger the calculation once in play mode
     public bool do_calculation;
 
-	// Update is called once per frame
 	void Update () {
 		if (do_calculation && Application.isEditor) {            
 
@@ -54,7 +53,8 @@ public class Jump_height_calculation : MonoBehaviour {
         }
 	}
 
-    //finds the right parameter value for the given function to return the target_value (within max_deviation) by trying out values between min_value and max_value
+    //finds the right parameter value for the given function to return the target_value (within max_deviation) 
+    //by trying out values between min_value and max_value
     private float calculate_value (Func<float,float> function, float target_value, float max_deviation, float min_value, float max_value) {
 
             
