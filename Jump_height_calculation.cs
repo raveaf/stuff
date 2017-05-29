@@ -48,46 +48,43 @@ public class Jump_height_calculation : MonoBehaviour {
             jump_impulse = calculate_value(jump_height_function, jump_height, 0.0001f, 3, 150 );            
 
             Physics2D.autoSimulation = true;            
-
-            
         }
 	}
 
     //finds the right parameter value for the given function to return the target_value (within max_deviation) 
     //by trying out values between min_value and max_value
     private float calculate_value (Func<float,float> function, float target_value, float max_deviation, float min_value, float max_value) {
-
             
-            float current_result = function(min_value);
-            bool inverse_correlation = function(max_value) < current_result;            
+        float current_result = function(min_value);
+        bool inverse_correlation = function(max_value) < current_result;            
                         
-            float current_value;
+        float current_value;
 
-            do {
-                //using the value exactly between min and max
-                current_value = (max_value + min_value) / 2;
-                current_result = function(current_value);
+        do {
+            //using the value exactly between min and max
+            current_value = (max_value + min_value) / 2;
+            current_result = function(current_value);
 
-                if (current_result == target_value || current_result == min_value || current_result == max_value) break;
+            if (current_result == target_value || current_result == min_value || current_result == max_value) break;
 
-                //updating min or max depending on the last result
-                if (current_result > target_value) {
-                    if (inverse_correlation) {
-                        min_value = current_value;
-                    } else {                        
-                        max_value = current_value;
-                    }
-                } else {
-                    if (inverse_correlation) {
-                        max_value = current_value;
-                    } else {                        
-                        min_value = current_value;
-                    }
+            //updating min or max depending on the last result
+            if (current_result > target_value) {
+                if (inverse_correlation) {
+                    min_value = current_value;
+                } else {                        
+                    max_value = current_value;
                 }
+            } else {
+                if (inverse_correlation) {
+                    max_value = current_value;
+                } else {                        
+                    min_value = current_value;
+                }
+            }
 
-            } while (Mathf.Abs(target_value - current_result) > max_deviation );
+        } while (Mathf.Abs(target_value - current_result) > max_deviation );
 
-            return current_value;
-        }
+        return current_value;
+    }
 
 }
