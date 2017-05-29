@@ -53,6 +53,7 @@ public class Jump_height_calculation : MonoBehaviour {
 
     //finds the right parameter value for the given function to return the target_value (within max_deviation) 
     //by trying out values between min_value and max_value
+    //returns min_value or max_value if no such parameter value could be found
     private float calculate_value (Func<float,float> function, float target_value, float max_deviation, float min_value, float max_value) {
             
         float current_result = function(min_value);
