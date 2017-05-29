@@ -49,7 +49,7 @@ public class Jump_height_calculation : MonoBehaviour {
 
             Physics2D.autoSimulation = true;            
         }
-	}
+    }
 
     //finds the right parameter value for the given function to return the target_value (within max_deviation) 
     //by trying out values between min_value and max_value
