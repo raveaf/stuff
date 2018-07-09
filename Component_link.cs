@@ -36,7 +36,7 @@ public class Compo_link : Attribute {
         this.children_as_list = children_as_list;
     }    
 
-    public static void resolve_component_links (this MonoBehaviour mono_behaviour) {
+    public static void resolve_component_links (MonoBehaviour mono_behaviour) {
 
         var flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
 
@@ -75,10 +75,10 @@ public class Compo_link : Attribute {
                     value = mono_behaviour.GetComponent(search_type);
                     break;
                 case Search_in.Children:
-                    value = mono_behaviour.child_by_name(search_type, search_name);
+                    value = child_by_name(mono_behaviour, search_type, search_name);
                     break;
                 case Search_in.From_root:
-                    value = mono_behaviour.transform.root.child_by_name(search_type, search_name);
+                    value = child_by_name(mono_behaviour.transform.root, search_type, search_name);
                     break;
                 
                 case Search_in.Scene:
@@ -87,7 +87,7 @@ public class Compo_link : Attribute {
                     SceneManager.GetActiveScene().GetRootGameObjects(root_objects);
 
                     foreach (GameObject root in root_objects) {
-                        var target = root.transform.child_by_name(search_type, search_name);
+                        var target = child_by_name(root.transform, search_type, search_name);
                         if (target != null) {
                             value = target;
                             break;
@@ -127,7 +127,7 @@ public class Compo_link : Attribute {
         }        
     }
 
-    static object child_by_name(this Component component, Type type , string name)  {
+    static object child_by_name(Component component, Type type , string name)  {
         foreach (Component t in component.GetComponentsInChildren(type,true) ) {
             if (t.gameObject.name.Trim().Equals(name.Trim() ) ) {
                 return t;
@@ -141,7 +141,7 @@ public class Compo_link : Attribute {
         return "(" + prop.Name + " in " + mono_behaviour.GetType() + ", game object: " + mono_behaviour.gameObject.name +")";
     }
 
-}
+} 
 
 public enum Search_in {
     Children,
